@@ -20,7 +20,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="text-center">Login</h3>
-                            <form>
+                            <form action="Login" method="post">
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email address</label>
                                   <input type="email" class="form-control" id="exampleInputEmail1" 

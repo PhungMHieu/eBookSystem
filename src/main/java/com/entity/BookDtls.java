@@ -14,6 +14,7 @@ public class BookDtls {
     private String bookName;
     private String author;
     private Double price;
+    private String bookCategory;
     private String status;
     private String photoName;
     private String email;
@@ -22,6 +23,14 @@ public class BookDtls {
         super();
     }
 
+    public String getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(String bookCategory) {
+        this.bookCategory = bookCategory;
+    }
+    
     public int getBookId() {
         return bookId;
     }

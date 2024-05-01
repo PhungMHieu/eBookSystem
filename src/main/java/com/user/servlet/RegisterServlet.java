@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -76,25 +77,39 @@ public class RegisterServlet extends HttpServlet {
             String email = request.getParameter("email");
             String phno = request.getParameter("phno");
             String password = request.getParameter("password");
-//            String check = request.getParameter("check");
+            String check = request.getParameter("check");
 //            log(name+" "+email+" "+phno+" "+password+" "+check);
             User us = new User();
             us.setName(name);
             us.setEmail(email);
             us.setPhno(phno);
             us.setPassword(password);
+            us.setRole("user");
+            HttpSession session = request.getSession();
 //            log(us.getPhno());
 //            us.setRole("user");
 //            log(us.toString());
 //            log(us.toString());
-            UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
-            boolean f = dao.userRegister(us);
-//            log(String.valueOf(f));
-            if(f){
-                log("User Register Success..");
+            log(check);
+            if(check != null){
+                UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
+                boolean f = dao.userRegister(us);
+    //            log(String.valueOf(f));
+                if(f){
+                    log("User Register Success..");
+                    session.setAttribute("succMsg", "Registration Successfully..");
+                    response.sendRedirect("register.jsp");
+                }else{
+                    session.setAttribute("failedMsg", "Something wrong on server..");
+                    response.sendRedirect("register.jsp");
+                    log("Something wrong on server");
+                }
             }else{
-                log("Something wrong on server");
+                session.setAttribute("failedMsg", "Please check agree & terms condition");
+                response.sendRedirect("register.jsp");
+                log("Please check agree & terms condition");
             }
+            
             
         } catch (Exception e) {
         }
