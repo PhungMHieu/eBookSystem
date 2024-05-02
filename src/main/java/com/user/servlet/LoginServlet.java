@@ -5,6 +5,9 @@
 
 package com.user.servlet;
 
+import com.DAO.UserDAOImpl;
+import com.DB.DBConnect;
+import com.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -68,14 +72,32 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        try {
-//            String email = request.getParameter("email");
-//            String password = request.getParameter("password");
-//            
-//        } catch (Exception e) {
-//        }
-        System.out.println("Hello World");
-        processRequest(request, response);
+        try {
+            UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
+            HttpSession sesion = request.getSession();
+            
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            log(email+" "+password+" "+role);
+            User us = dao.login(email, password, role);
+//            log(us.toString());
+            if(us != null){
+                sesion.setAttribute("userobj", us);
+                if("Admin".equals(role)) response.sendRedirect("admin/home.jsp");
+                else if("User".equals(role)) response.sendRedirect("home.jsp");
+                else response.sendRedirect("storeManager/home.jsp");
+                
+            }else{
+                sesion.setAttribute("failedMsg", "Email & Pasowrd Invalid");
+                response.sendRedirect("login.jsp");
+            }
+            
+            response.sendRedirect("home.jsp");
+        } catch (Exception e) {
+        }
+//        System.out.println("Hello World");
+//        processRequest(request, response);
     }
 
     /** 

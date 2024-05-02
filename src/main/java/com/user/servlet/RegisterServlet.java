@@ -84,13 +84,13 @@ public class RegisterServlet extends HttpServlet {
             us.setEmail(email);
             us.setPhno(phno);
             us.setPassword(password);
-            us.setRole("user");
+            us.setRole("User");
             HttpSession session = request.getSession();
 //            log(us.getPhno());
 //            us.setRole("user");
 //            log(us.toString());
-//            log(us.toString());
-            log(check);
+            log(us.toString());
+//            log(check);
             if(check != null){
                 UserDAOImpl dao = new UserDAOImpl(DBConnect.getConn());
                 boolean f = dao.userRegister(us);
