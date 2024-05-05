@@ -104,13 +104,13 @@ public class BooksAdd extends HttpServlet {
             b.setEmail("admin");
             log(b.toString());
             BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
-            String path = getServletContext().getRealPath("")+"book";
-            log(path);
-            File file = new File(path);
-            part.write(path+File.separator+fileName);
             boolean f = dao.addBooks(b);
             HttpSession session = request.getSession();
             if(f){
+                String path = getServletContext().getRealPath("")+"book";
+                log(path);
+                File file = new File(path);
+                part.write(path+File.separator+fileName);
                 session.setAttribute("succMsg", "Book Add Successfully");
                 response.sendRedirect("admin/add_books.jsp");
             }else{
