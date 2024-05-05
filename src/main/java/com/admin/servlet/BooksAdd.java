@@ -11,18 +11,22 @@ import com.entity.BookDtls;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.*;
 
 /**
  *
  * @author PC
  */
 @WebServlet(name="BooksAdd", urlPatterns={"/add_books"})
+@MultipartConfig
 public class BooksAdd extends HttpServlet {
    
     /** 
@@ -86,8 +90,9 @@ public class BooksAdd extends HttpServlet {
             log(price);
             String categories = request.getParameter("categories");
             String status = request.getParameter("status");
-            String fileName = request.getParameter("bimg");
-            log(fileName);
+            Part part = request.getPart("bimg");
+            String fileName = part.getSubmittedFileName();
+//            log(fileName);
 //            log(price);
             BookDtls b = new BookDtls();
             b.setAuthor(author);
@@ -99,6 +104,10 @@ public class BooksAdd extends HttpServlet {
             b.setEmail("admin");
             log(b.toString());
             BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
+            String path = getServletContext().getRealPath("")+"book";
+            log(path);
+            File file = new File(path);
+            part.write(path+File.separator+fileName);
             boolean f = dao.addBooks(b);
             HttpSession session = request.getSession();
             if(f){

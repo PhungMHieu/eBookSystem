@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.DAO.BookDAOImpl" %>
+<%@ page import="com.DB.DBConnect" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.entity.BookDtls" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +23,7 @@
             <thead class="bg-primary text-white">
                 <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Book Name</th>
                     <th scope="col">Author</th>
                     <th scope="col">Price</th>
@@ -28,42 +33,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
+                <%
+                   BookDAOImpl dao = new BookDAOImpl(DBConnect.getConn());
+                   List<BookDtls> list = dao.getAllBooks();
+                   for(BookDtls b: list){
+                    %>
+                    <tr>
+                        <td><%=b.getBookId() %></td>
+                        <td><img src="../book/<%=b.getBookName()%>" style="width:50px; height: 50px;"></td>
+                        <td><%=b.getBookName() %></td>
+                        <td><%=b.getAuthor() %></td>
+                        <td><%=b.getPrice() %></td>
+                        <td><%=b.getBookCategory() %></td>
+                        <td><%=b.getStatus() %></td>
+
+                        <td>
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                     <%
+                    }
+                %>
+                
             </tbody>
         </table>
     </body>

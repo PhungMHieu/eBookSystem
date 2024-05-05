@@ -8,6 +8,9 @@ import com.DB.DBConnect;
 import com.entity.BookDtls;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -49,5 +52,30 @@ public class BookDAOImpl implements BookDAO{
         b.setBookCategory("New");
         System.out.println(bDaoImpl.addBooks(b));;
         System.out.println(b);
+    }
+
+    @Override
+    public List<BookDtls> getAllBooks() {
+        List<BookDtls> list =  new ArrayList<BookDtls>();
+        BookDtls b = null;
+        try {
+            String sql = "select * from book_dtls";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                b = new BookDtls();
+                b.setBookId(rs.getInt("bookId"));
+                b.setBookName(rs.getString("bookname"));
+                b.setAuthor(rs.getString("author"));
+                b.setPrice(rs.getString("price"));
+                b.setBookCategory(rs.getString("bookCategory"));
+                b.setStatus(rs.getString("status"));
+                b.setPhotoName(rs.getString("photo"));
+                b.setEmail(rs.getString("email"));
+                list.add(b);
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 }
