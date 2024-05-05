@@ -13,7 +13,7 @@ public class BookDtls {
     private int bookId;
     private String bookName;
     private String author;
-    private Double price;
+    private String price;
     private String bookCategory;
     private String status;
     private String photoName;
@@ -43,7 +43,7 @@ public class BookDtls {
         return author;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -71,7 +71,7 @@ public class BookDtls {
         this.author = author;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -85,6 +85,11 @@ public class BookDtls {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "BookDtls{" + "bookId=" + bookId + ", bookName=" + bookName + ", author=" + author + ", price=" + price + ", bookCategory=" + bookCategory + ", status=" + status + ", photoName=" + photoName + ", email=" + email + '}';
     }
     
 }
