@@ -1,7 +1,10 @@
+C:\Users\PC\Documents\eBookSystem\src\main\java\com\DAO\BookDAOImpl.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\admin\servlet\BooksAdd.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\DB\DBConnect.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\user\servlet\LoginServlet.java
+C:\Users\PC\Documents\eBookSystem\src\main\java\com\admin\servlet\EditBooksServlet.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\DAO\UserDAOImpl.java
+C:\Users\PC\Documents\eBookSystem\src\main\java\com\DAO\BookDAO.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\DAO\UserDAO.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\entity\BookDtls.java
 C:\Users\PC\Documents\eBookSystem\src\main\java\com\entity\User.java

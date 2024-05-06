@@ -1,6 +1,0 @@
-com\DAO\UserDAOImpl.class
-com\entity\BookDtls.class
-com\DB\DBConnect.class
-com\DAO\UserDAO.class
-com\entity\User.class
-com\user\servlet\RegisterServlet.class
